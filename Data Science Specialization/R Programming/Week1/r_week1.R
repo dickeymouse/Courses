@@ -45,25 +45,39 @@ rbind(x,y)   ##row bind
 x <- list(1, "a", TRUE)
 x
 
+x<- vector("list", length = 4)
+x
+
+
 ##Factor
 x <- factor(c("yes","yes","no","yes"))
 x
+c("yes","yes","no","yes")
+
 table(x)
 unclass(x)   ##see the underlining integer
 
-x<- factor(c("yes","yes","no"), levels = c("yes","no"))
-x
+x1<- factor(c("yes","yes","no"), levels = c("yes","no"))
+x1
+
+x2<- factor(c("yes","yes","no"), levels = c("no","yes"))
+x2
+unclass(x1)
+unclass(x2)
 
 
 ##Data Frames
 x <- data.frame(foo = 1:4, bar = c(T, T, F, T))
 x
+attributes(x)
+
 
 #names
 x <- 1:3
 names(x) <- c("New York", "Seattle", "Los Angeles")
 x
 names(x)
+attributes(x)
 
 m <- matrix(1:4, nrow = 2, ncol =2)
 dimnames(m) <- list(c("a", "b"), c("c", "d"))
@@ -73,11 +87,17 @@ d <- data.frame(1:4, c("Y", "N", "N", "Y"))
 d
 names(d) <- c("ID", "Answer")
 row.names(d) <- c(101,102,103,104)
+d
 
 
 ##Read In
-help("read.table()")
 ??read.table()
+data <- read.table("Topscored_patient_list.csv", header = TRUE, sep = ",")
+data
+class(data)
+attributes(data)
+
+library(readr)
 
 
 ##Textual Format to Store Data
@@ -87,6 +107,7 @@ y
 dput(y)
 dput(y, file = "y.R")
 new_y <- dget("y.R")
+new_y
 
 
 x <- "foo"
@@ -98,7 +119,9 @@ str(y)
 
 
 a <- data.frame(x = rnorm(100), y = runif(100))
+a
 b <- c(3, 4.4, 1/3)
+b
 save(a, b, file = "mydata.rda")
 rm(a,b)
 load("mydata.rda")
@@ -109,11 +132,18 @@ load("mydata.RData")
 x <- c(1,3,4,0)
 serialize(x,NULL)
 
+x1 <- c("a", "it is simple a test!")
+serialize(x1,NULL)
+
 
 ##Interfaces to the outside World
 str(file)
+str(pnorm)
+str(read.csv)
+help(pnorm)
 
-con <- url("https://www.coursera.org/learn/inferential-statistics/home/week/2", "r")
+
+con <- url("https://www.baidu.com", "r")
 x <- readline(con)
 head(x)
 

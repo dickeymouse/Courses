@@ -20,3 +20,4 @@ intercept <- mean(liking) - (0.778 * mean(money))
 intercept
 
 lm(liking ~ money)
+summary(lm(liking ~ money))

@@ -1,55 +1,90 @@
-##R Programming
-##Week1
+##R Programming for Data Science
+
+#5.R Nuts and Bolts
 
 x <- 1
 x
 print(x)
+x <- 11:30
+x
 print(1:100)
 
+
 #integer
-v_integer <- 1L
-v_infinit <- Inf
+var1 <- 1
+class(var1)
 
-1/v_infinit
+var2 <- 1L
+class(var2)
 
-##Vector
+var3 <- Inf
+class(var3)
+
+1/var3 #=0
+
+attributes(var3)
+
+
+#Vector
 x <- c(0.5, 0.6)
+x <- c(TRUE, FALSE)
+x <- 1:29
+
 x <- vector("numeric", length = 10)
 x
 
+x <- vector("character", length = 5)
+x
+
+x <- vector("logical", length = 5)
+x
+
 y <- c(1.7, "a")
+y
+y <- c(T,2)
+y
+y <- c("a", T)
 y
 
 x <- 0:6
 class(x)
 as.logical(x)
+as.numeric(x)
+as.character(x)
 
 
-##matrices
+#matrices
 ##vectors with dimenion attribute
 m <- matrix(1:6, nrow = 2, ncol = 3)
 m
 dim(m)
 attributes(m)
 
-m1 <- 1:10
-dim(m1) <- c(2,5)
-m1
+m <- 1:10
+dim(m) <- c(2,5)
+m
+dim(m) <- c(5,2)
+m
+
+as.numeric(m) #1:10
 
 x <- 1:3
 y <- 10:12
 cbind(x,y)   ##column bind
 rbind(x,y)   ##row bind
 
-##List
-x <- list(1, "a", TRUE)
+
+#List
+x <- list(1, "a", TRUE, 1 + 4i)
 x
+x[1]
+x[[1]]
 
 x<- vector("list", length = 4)
 x
 
 
-##Factor
+#Factor
 x <- factor(c("yes","yes","no","yes"))
 x
 c("yes","yes","no","yes")
@@ -57,30 +92,47 @@ c("yes","yes","no","yes")
 table(x)
 unclass(x)   ##see the underlining integer
 
-x1<- factor(c("yes","yes","no"), levels = c("yes","no"))
+x1<- factor(c("yes","yes","no"), levels = c("yes","no")) #1 = yes 2 = no
 x1
 
-x2<- factor(c("yes","yes","no"), levels = c("no","yes"))
+x2<- factor(c("yes","yes","no"), levels = c("no","yes"))  #1 = no 2 = yes
 x2
 unclass(x1)
 unclass(x2)
 
 
+#Missing Values
+x <- c(1, 2, NA, 10)
+is.na(x)
+is.nan(x)
+
 ##Data Frames
 x <- data.frame(foo = 1:4, bar = c(T, T, F, T))
 x
 attributes(x)
+nrow(x)
+ncol(x)
 
 
 #names
 x <- 1:3
-names(x) <- c("New York", "Seattle", "Los Angeles")
+names(x) <- c("New York", "Seattle")
 x
 names(x)
 attributes(x)
 
+x <- list("L A" = 1, Bos = 2, Lon = 3)
+x
+names(x)
+x$Bos
+x["Bos"]
+x[["Bos"]]
+
 m <- matrix(1:4, nrow = 2, ncol =2)
 dimnames(m) <- list(c("a", "b"), c("c", "d"))
+m
+colnames(m) <- c("h", "f")
+rownames(m) <- c("x", "y")
 m
 
 d <- data.frame(1:4, c("Y", "N", "N", "Y"))
@@ -90,18 +142,27 @@ row.names(d) <- c(101,102,103,104)
 d
 
 
-##Read In
+
+#6. Getting Data In and Out of R
 ??read.table()
 data <- read.table("Topscored_patient_list.csv", header = TRUE, sep = ",")
 data
 class(data)
 attributes(data)
 
+#Using readr package
 library(readr)
+teams <- read_csv("data/team_stadnings.csv", col_types ="cc")
+
 
 
 ##Textual Format to Store Data
 ##dput()
+y <- data.frame(a = 1, b = "a")
+dput(y)
+y
+
+#dget
 y <- data.frame(name = c("Tim", "Mike"), score = c(80, 92))
 y
 dput(y)
@@ -110,6 +171,7 @@ new_y <- dget("y.R")
 new_y
 
 
+#dump multiple objects
 x <- "foo"
 y <- data.frame(a = 1L, b = "a")
 dump(c("x", "y"), file = "data.R")
@@ -118,6 +180,7 @@ source("data.R")
 str(y)
 
 
+#binary Formats
 a <- data.frame(x = rnorm(100), y = runif(100))
 a
 b <- c(3, 4.4, 1/3)
@@ -126,6 +189,7 @@ save(a, b, file = "mydata.rda")
 rm(a,b)
 load("mydata.rda")
 
+#all objects in the work space
 save.image(file = "mydata.RData")
 load("mydata.RData")
 
@@ -143,12 +207,14 @@ str(read.csv)
 help(pnorm)
 
 
-con <- url("https://www.baidu.com", "r")
+con <- url("http://morgan.dartmouth.edu/Docs/60476/", "r")
 x <- readline(con)
 head(x)
 
 
-##Subsetting
+#10 Subsetting R Objects
+
+## 
 ##Vector
 x <- 1:10
 x[1]
